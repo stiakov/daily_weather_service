@@ -1,4 +1,7 @@
+@import url('https://fonts.googleapis.com/css?family=Baumans|Exo:400,500&display=swap');
+
 body {
+  font-family: 'Exo', sans-serif;
   min-height: 100%;
   background: #2980B9;
   background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
@@ -42,14 +45,6 @@ button {
   background: none;
   left: -1.3em;
   cursor:pointer;
-}
-
-#data-receptor {
-  display: flex;
-  text-align: center;
-  flex-flow: column;
-  align-self: center;
-  max-width: 45vw;
 }
 
 .form-container {
@@ -96,4 +91,41 @@ datalist {
 
 input::-webkit-calendar-picker-indicator {
 	display: none;
+}
+
+#data-receptor {
+  display: flex;
+  flex-flow: column;
+  padding: 1em;
+  margin: 1.2em;;
+  text-align: center;
+  flex-flow: column;
+  align-self: center;
+  width: 45vw;
+  max-width: 45vw;
+  
+  #titleContainer {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.8em;
+    i { margin-right: 0.8em;}
+  }
+
+  #firstRow {
+    display: flex;
+    flex-flow: row;
+  }
+  .weatherIcon {
+    height: 10em;
+    width: auto;
+  }
+  #col2 h4 { margin: 0;}
+  #temp {
+    font-size: 5em;
+    font-family: 'Baumans', cursive;
+  }
+  
+  #desc {text-transform: capitalize;}
 }

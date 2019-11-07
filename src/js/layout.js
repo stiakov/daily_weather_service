@@ -51,8 +51,10 @@ export const initLayout = () => {
       const cityId = input.value.split('/');
       input.value = cityId[0]
       getWeather(cityId[1])
-        .then(() => {
+        .then((data) => {
+          console.log(data);
           iconToggler();
+          renderData(data);
         })
         .catch(() => {
           iconToggler();
@@ -77,16 +79,29 @@ export const initLayout = () => {
   append(mainContainer, [formContainer]);
 };
 export const renderData = (data) => {
-  const dataReceptor = create('div', [
-    { id: 'data-receptor' },
-    { innerText: 'OHHH!' }
-  ]);
+  getById('search').value = '';
+  const dataReceptor = create('div', [{ id: 'data-receptor' }]);
 
+  const titleContainer = create('div', [{ id: 'titleContainer'}]);
+  const cityName = create('div', [{ id: 'cityName'}]);
+  const locationIcon = create('i', [{ className: 'ion-location' }]);
+  cityName.innerText = `${data.name} - ${data.sys.country} `;
+  append(titleContainer, [locationIcon, cityName]);
+  
   const firstRow = create('div', [{ id: 'firstRow' }]);
-  const col1 = create('div', [{ id: 'col1' }, { innerText: 'Hey!' }]);
-  const col2 = create('div', [{ id: 'col2' }, { innerText: 'Hey!' }]);
-  const col3 = create('div', [{ id: 'col3' }, { innerText: 'Hey!' }]);
-
-  append(dataReceptor, [firstRow]);
+  const col1 = create('div', [{ id: 'col1' }]);
+  const col2 = create('div', [{ id: 'col2' }]);
+  const col3 = create('div', [{ id: 'col3' }]);
+  const icon = create('img', [
+    { className: 'weatherIcon' },
+    { src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` }
+  ]);
+  const desc = create('h4', [{ id: 'desc' }, { innerText: data.weather[0].description }]);
+  const temp = create('div', [{ id: 'temp' }, { innerText: `${data.main.temp}º` }]);
+  const minmax = create('div', [{ id: 'minmax' }, { innerText: `min ${data.main.temp_min}º  /  max ${data.main.temp_max}º` }]);
+  append(col2, [icon, desc]);
+  append(col3, [temp, minmax]);
+  append(dataReceptor, [titleContainer, firstRow]);
   append(firstRow, [col1, col2, col3]);
+  append(mainContainer, [dataReceptor]);
 };
