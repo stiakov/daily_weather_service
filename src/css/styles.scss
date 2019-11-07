@@ -26,7 +26,7 @@ body {
 #search {
   position: relative;
   display: block;
-  width: 45vw;
+  width: (45vw + 2.3vw);
   height: 5vw;
   font-size: 2.5em;
   border-radius: 5px;
@@ -70,7 +70,7 @@ button {
   max-width: 100vw;
   height: 100vh;
   max-height: 100vh;
-
+  
   position: fixed;
   z-index: 100;
   
@@ -86,11 +86,11 @@ button {
 }
 
 datalist {
-	display: none;
+  display: none;
 }
 
 input::-webkit-calendar-picker-indicator {
-	display: none;
+  display: none;
 }
 
 #data-receptor {
@@ -112,16 +112,19 @@ input::-webkit-calendar-picker-indicator {
     font-size: 1.8em;
     i { margin-right: 0.8em;}
   }
-
+  
   #firstRow {
     display: flex;
     flex-flow: row;
+    justify-content: space-between;
+    .col {flex: 1;}
   }
   .weatherIcon {
     height: 10em;
     width: auto;
+    object-fit: cover;
   }
-  #col2 h4 { margin: 0;}
+  h4 { margin: 0;}
   #temp {
     font-size: 5em;
     font-family: 'Baumans', cursive;

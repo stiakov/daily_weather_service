@@ -1,7 +1,8 @@
 import { getById, append, create } from "./setup";
-import { getWeather } from "./owmHandler";
+import { getWeather, getKtoF, minmaxKtoF, getKtoC, minmaxKtoC } from "./owmHandler";
 import { collection } from "./cities";
 import gif from '../img/loading_weather.gif'
+
 
 const mainContainer = getById('main-container');
 
@@ -89,16 +90,16 @@ export const renderData = (data) => {
   append(titleContainer, [locationIcon, cityName]);
   
   const firstRow = create('div', [{ id: 'firstRow' }]);
-  const col1 = create('div', [{ id: 'col1' }]);
-  const col2 = create('div', [{ id: 'col2' }]);
-  const col3 = create('div', [{ id: 'col3' }]);
+  const col1 = create('div', [{ className: 'col' }]);
+  const col2 = create('div', [{ className: 'col' }]);
+  const col3 = create('div', [{ className: 'col' }]);
   const icon = create('img', [
     { className: 'weatherIcon' },
     { src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` }
   ]);
   const desc = create('h4', [{ id: 'desc' }, { innerText: data.weather[0].description }]);
-  const temp = create('div', [{ id: 'temp' }, { innerText: `${data.main.temp}º` }]);
-  const minmax = create('div', [{ id: 'minmax' }, { innerText: `min ${data.main.temp_min}º  /  max ${data.main.temp_max}º` }]);
+  const temp = create('div', [{ id: 'temp' }, { innerText: getKtoC(data.main.temp) }]);
+  const minmax = create('div', [{ id: 'minmax' }, { innerText: minmaxKtoC(data.main.temp_min, data.main.temp_max) }]);
   append(col2, [icon, desc]);
   append(col3, [temp, minmax]);
   append(dataReceptor, [titleContainer, firstRow]);
