@@ -11,7 +11,7 @@ const convertKtoF = (val) => Math.round((val - 273.15) * (9 / 5) + 32);
 const convertKtoC = (val) => Math.round(val - 273.15);
 
 export const getKtoF = (k) => `${convertKtoF(k)}ºF`;
-export const minmaxKtoF = (min, max) => `min ${convertKtoF(min)} / max ${convertKtoF(max)}`;
+export const minmaxKtoF = (min, max) => `min ${convertKtoF(min)}º / max ${convertKtoF(max)}º`;
 
-export const getKtoC = (k) => `${Math.round(k - 273.15)}ºC`;
+export const getKtoC = (k) => `${convertKtoC(k)}ºC`;
 export const minmaxKtoC = (min, max) => `min ${convertKtoC(min)}º / max ${convertKtoC(max)}º`;
