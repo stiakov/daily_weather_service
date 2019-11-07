@@ -1,6 +1,6 @@
 @import url('https://fonts.googleapis.com/css?family=Baumans|Exo:400,500&display=swap');
 
-body {
+html {
   font-family: 'Exo', sans-serif;
   min-height: 100%;
   background: #2980B9;
@@ -8,7 +8,7 @@ body {
   background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
 }
 
-#main-container {
+.main-container {
   display: flex;
   display: -webkit-box;
   display: -moz-box;
@@ -19,8 +19,7 @@ body {
   margin: 0;
   align-items: center;
   justify-content: center;
-  min-height: 100vh;
-  min-width: 100vw;
+  min-height: 75vh;
 }
 
 #search {
@@ -93,18 +92,30 @@ input::-webkit-calendar-picker-indicator {
   display: none;
 }
 
-#data-receptor {
+.cards {
+  display: none;
+  padding: 1em;
+  flex-flow: row wrap;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  max-width: auto;
+}
+
+.data-receptor {
   display: flex;
   flex-flow: column;
-  padding: 1em;
-  margin: 1.2em;;
+  flex: 1;
+  padding: .4em;
+  margin: .3em;
   text-align: center;
-  flex-flow: column;
   align-self: center;
-  width: 45vw;
-  max-width: 45vw;
+  max-width: 33%;
+  min-width: 33%;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.5);
+  border-radius: 5px;
   
-  #titleContainer {
+  .titleContainer {
     display: flex;
     flex-flow: row;
     justify-content: center;
@@ -112,23 +123,83 @@ input::-webkit-calendar-picker-indicator {
     font-size: 1.8em;
     i { margin-right: 0.8em;}
   }
+
+  .cardToggler {
+    cursor: pointer;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
   
-  #firstRow {
+  .firstRow {
     display: flex;
     flex-flow: row;
     justify-content: space-between;
     .col {flex: 1;}
+
   }
   .weatherIcon {
-    height: 10em;
-    width: auto;
+    // height: 10em;
+    // width: auto;
     object-fit: cover;
   }
   h4 { margin: 0;}
-  #temp {
+  .temp {
     font-size: 5em;
     font-family: 'Baumans', cursive;
   }
   
-  #desc {text-transform: capitalize;}
+  .desc {
+    text-transform: capitalize;
+    flex: 1;
+  }
+
+  .minmax {
+    text-align: center;
+  }
+}
+
+.toTop {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  -webkit-transition: min-height .3s ease-in-out;
+  transition: min-height .3s ease-in-out;
+  min-height: 22vh;
+}
+
+@-webkit-keyframes rotateY1 {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY1 {
+  to { transform: rotateY(360deg); }
+}
+
+@-webkit-keyframes rotateY2 {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY2 {
+  to { transform: rotateY(360deg); }
+}
+.spin1 {
+  -webkit-animation: rotateY1 .5s ease;
+  animation: rotateY1 .5s ease;
+  cursor: pointer;
+}
+.spin2 {
+  -webkit-animation: rotateY2 .5s ease;
+  animation: rotateY2 .5s ease;
+  cursor: pointer;
 }

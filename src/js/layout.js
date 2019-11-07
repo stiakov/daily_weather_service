@@ -1,10 +1,11 @@
 import { getById, append, create } from "./setup";
-import { getWeather, getKtoF, minmaxKtoF, getKtoC, minmaxKtoC } from "./owmHandler";
+import { getWeather, getKtoF, minmaxKtoF, getKtoC, minmaxKtoC, getWeatherIcon } from "./owmHandler";
 import { collection } from "./cities";
 import gif from '../img/loading_weather.gif'
 
 
 const mainContainer = getById('main-container');
+const cards = getById('cards');
 
 const preloadDatalist = async () => {
   getById('modalgif').src = await gif;
@@ -53,7 +54,6 @@ export const initLayout = () => {
       input.value = cityId[0]
       getWeather(cityId[1])
         .then((data) => {
-          console.log(data);
           iconToggler();
           renderData(data);
         })
@@ -80,29 +80,53 @@ export const initLayout = () => {
   append(mainContainer, [formContainer]);
 };
 export const renderData = (data) => {
-  getById('search').value = '';
-  const dataReceptor = create('div', [{ id: 'data-receptor' }]);
+  mainContainer.classList.remove('main-container');
+  mainContainer.classList.add('toTop');
+  const input = getById('search');
+  input.value = '';
+  cards.style.display = 'flex';
 
-  const titleContainer = create('div', [{ id: 'titleContainer'}]);
-  const cityName = create('div', [{ id: 'cityName'}]);
+  const dataReceptor = create('div', [{ className: 'data-receptor spin1 cardToggler' }]);
+
+  const titleContainer = create('div', [{ className: 'titleContainer'}]);
+  const cityName = create('div', [{ className: 'cityName'}]);
   const locationIcon = create('i', [{ className: 'ion-location' }]);
-  cityName.innerText = `${data.name} - ${data.sys.country} `;
+  cityName.innerText = data.name;
   append(titleContainer, [locationIcon, cityName]);
   
-  const firstRow = create('div', [{ id: 'firstRow' }]);
+  const firstRow = create('div', [{ className: 'firstRow' }]);
   const col1 = create('div', [{ className: 'col' }]);
   const col2 = create('div', [{ className: 'col' }]);
   const col3 = create('div', [{ className: 'col' }]);
   const icon = create('img', [
     { className: 'weatherIcon' },
-    { src: `http://openweathermap.org/img/wn/${data.weather[0].icon}@2x.png` }
+    { src: getWeatherIcon(data.weather[0].icon) }
   ]);
-  const desc = create('h4', [{ id: 'desc' }, { innerText: data.weather[0].description }]);
-  const temp = create('div', [{ id: 'temp' }, { innerText: getKtoC(data.main.temp) }]);
-  const minmax = create('div', [{ id: 'minmax' }, { innerText: minmaxKtoC(data.main.temp_min, data.main.temp_max) }]);
-  append(col2, [icon, desc]);
-  append(col3, [temp, minmax]);
+  const desc = create('h4', [{ className: 'desc' }, { innerText: data.weather[0].description }]);
+  const temp = create('div', [{ className: 'temp' }, { innerText: getKtoC(data.main.temp) }, { id: 'temp' }]);
+  const minmax = create('div', [{ className: 'minmax' }, { innerText: minmaxKtoC(data.main.temp_min, data.main.temp_max) }]);
+  append(col2, [temp, minmax]);
+  dataReceptor.addEventListener('click', () => {
+    cardToggler(col2, data);
+  });
+  append(col3, [icon, desc]);
   append(dataReceptor, [titleContainer, firstRow]);
   append(firstRow, [col1, col2, col3]);
-  append(mainContainer, [dataReceptor]);
+  append(cards, [dataReceptor]);
+};
+
+const cardToggler = (obj, data) => {
+  const parent = obj.parentElement.parentElement;
+  parent.classList.toggle('spin1');
+  parent.classList.toggle('spin2');
+  const key = obj.firstChild.innerText.split('º');
+  setTimeout(() => {
+    if (key[1] === 'C') {
+      obj.firstChild.innerText = getKtoF(data.main.temp);
+      obj.lastChild.innerText = minmaxKtoF(data.main.temp_min, data.main.temp_max);
+    } else {
+      obj.firstChild.innerText = getKtoC(data.main.temp);
+      obj.lastChild.innerText = minmaxKtoC(data.main.temp_min, data.main.temp_max);
+    }
+  }, 250);
 };
