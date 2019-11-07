@@ -1,6 +1,5 @@
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-import '@ixiaer/icon-ionicons/assets/ionicons.css'
 
 module.exports = {
   // mode: 'development',

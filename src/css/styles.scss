@@ -1,9 +1,8 @@
 body {
   min-height: 100%;
-  background: #2980B9;  /* fallback for old browsers */
-  background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);  /* Chrome 10-25, Safari 5.1-6 */
-  background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9); /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
- /* Chrome 10-25, Safari 5.1-6 */
+  background: #2980B9;
+  background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
+  background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
 }
 
 #main-container {
@@ -33,7 +32,6 @@ body {
   opacity: 0.5;
 }
 
-
 button {
   position: relative;
   vertical-align: middle;
@@ -43,8 +41,8 @@ button {
   opacity: 0.5;
   background: none;
   left: -1.3em;
+  cursor:pointer;
 }
-
 
 #data-receptor {
   display: flex;
@@ -58,4 +56,44 @@ button {
   display: flex;
   flex-direction: row;
   input { flex-grow: 1; }
+}
+
+#modalgif {
+  width: auto;
+  height: auto;
+}
+
+.modal {
+  display: flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+
+  position: fixed;
+  z-index: 100;
+  
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  background:#e4f3f3;
+}
+
+.closed {
+  display: none;
+}
+
+datalist {
+	display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+	display: none;
 }

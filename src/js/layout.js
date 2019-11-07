@@ -1,55 +1,80 @@
 import { getById, append, create } from "./setup";
-import { getWeather} from "./owmHandler";
+import { getWeather } from "./owmHandler";
+import { collection } from "./cities";
+import gif from '../img/loading_weather.gif'
 
 const mainContainer = getById('main-container');
 
+const preloadDatalist = async () => {
+  getById('modalgif').src = await gif;
+  const searchHelper = await create('datalist', [{ id: 'citiesList' }]);
+
+  await collection.forEach((item) => {
+    const option = create('option', [{ value: `${item.nm} – ${item.nat}/${item.id}` }]);
+    append(searchHelper, [option]);
+  });
+  await append(mainContainer, [searchHelper]);
+};
+
 export const initLayout = () => {
-  const formContainer = create('div', [
-    { className: 'form-container' }
-  ]);
+  preloadDatalist().then(() => {
+    getById('modal').classList.add('closed');
+  });
+
+  const formContainer = create('div', [{ className: 'form-container' }]);
   const searchInput = create('input', [
     { id: 'search' },
     { type: 'text' },
     { placeholder: 'City' }
   ]);
+  searchInput.setAttribute('list', 'citiesList');
   const submit = create('button', [{ type: 'submit' }]);
-  const submitIcon = create('i', [{ className: 'icon ion-android-globe input-icon' }]);
-  const searchHelper = create('div' [{ id: 'cities' }]);
+  const submitIcon = create('i', [{ className: 'icon ion-android-earth input-icon' }]);
 
-  const searchCities = async (city) => {
-    const res =  await fetch('./city.list.json');
-    const cities = await res.json();
-    let matches = cities.filter((city) => {
-      const regex = new RegExp(`^${city}`, 'gi');
-      return city['name'].match(regex) || city['country'].match(regex);
-    });
-
-    if (matches.length === 0) {
-      matches = [];
-    }
-    console.log(matches);
+  const iconToggler = () => {
+    submitIcon.classList.toggle('ion-android-earth');
+    submitIcon.classList.toggle('ion-loading-c');
   };
-  //searchInput.addEventListener('input', () => searchCities(searchInput.value));
-  searchInput.addEventListener('keydown', (e) => {
-    let location;
-    if (searchInput.value.length > 0) location = searchInput.value;
-    if (e.key === 'Enter') {
-      submitIcon.classList.remove('ion-android-globe');
-      submitIcon.classList.add('ion-loading-c');
 
-      const response = getWeather(location)
-        .then(data => {
-          submitIcon.classList.add('ion-android-globe');
-          submitIcon.classList.remove('ion-loading-c');
-          console.log('data', data)
+  const getWeatherHandler = (id) => {
+    const input = getById('search');
+    if (input.value === '') {
+      input.placeholder = 'Type a city';
+      submitIcon.classList.remove('ion-loading-c');
+      submitIcon.classList.remove('ion-android-earth');
+      submitIcon.classList.add('ion-ios7-information')
+      setTimeout(() => {
+        submitIcon.classList.toggle('ion-ios7-information')
+        submitIcon.classList.add('ion-android-earth');
+      }, 1500);
+    } else {
+      const cityId = input.value.split('/');
+      input.value = cityId[0]
+      getWeather(cityId[1])
+        .then(() => {
+          iconToggler();
         })
-        .catch(error => console.log('error', error));
+        .catch(() => {
+          iconToggler();
+        });
+    }
+  };
+
+  submit.addEventListener('click', () => {
+    iconToggler();
+    getWeatherHandler();
+  });
+
+  searchInput.addEventListener('keydown', (e) => {
+    if (e.key === 'Enter') {
+      iconToggler();
+      getWeatherHandler();
     }
   });
 
   append(submit, [submitIcon]);
   append(formContainer, [searchInput, submit]);
-  append(mainContainer, [formContainer, searchHelper]);
+  append(mainContainer, [formContainer]);
 };
 export const renderData = (data) => {
   const dataReceptor = create('div', [
