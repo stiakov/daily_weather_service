@@ -27,7 +27,7 @@ const preloadDatalist = async () => {
   const searchHelper = await create('datalist', [{ id: 'citiesList' }]);
 
   await collection.forEach((item) => {
-    const option = create('option', [{ value: `${item.nm} – ${item.nat}/${item.id}` }]);
+    const option = create('option', [{ value: `${item.nm} ${item.nat} / ${item.id}` }]);
     append(searchHelper, [option]);
   });
   await append(mainContainer, [searchHelper]);
@@ -55,7 +55,7 @@ export const initLayout = () => {
     submitIcon.classList.toggle('ion-loading-c');
   };
 
-  const getWeatherHandler = (id) => {
+  const getWeatherHandler = () => {
     const input = getById('search');
     if (input.value === '') {
       input.placeholder = 'Type a city';
@@ -68,8 +68,8 @@ export const initLayout = () => {
       }, 1500);
     } else {
       const cityId = input.value.split('/');
-      input.value = cityId[0]
-      getWeather(cityId[1])
+      input.value = cityId[0];
+      getWeather(cityId[1].trim())
         .then((data) => {
           iconToggler();
           renderData(data);
