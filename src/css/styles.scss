@@ -1,11 +1,37 @@
-@import url('https://fonts.googleapis.com/css?family=Baumans|Exo:400,500&display=swap');
+@import url('https://fonts.googleapis.com/css?family=Oswald:500|Roboto&display=swap');
 
 html {
-  font-family: 'Exo', sans-serif;
+  font-family: 'Roboto', sans-serif;
   min-height: 100%;
-  background: #2980B9;
-  background: -webkit-linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
-  background: linear-gradient(to top, #FFFFFF, #6DD5FA, #2980B9);
+}
+
+#lightToggler { margin-right: .5em;}
+
+.lightsOn {
+  font-size: 2.5em;
+  color: #000046;
+  clear: both;
+  float: right;
+  cursor: pointer;
+}
+.lightsOff {
+  font-size: 2.5em;
+  color: #FFFDE4;
+  clear: both;
+  float: right;
+  cursor: pointer;
+}
+
+.bgDay{
+  background: #005AA7;
+  background: -webkit-linear-gradient(to top, #FFFDE4, #6DD5FF, #005AA7);
+  background: linear-gradient(to top, #FFFDE4, #6DD5FF, #005AA7);
+}
+
+.bgNight {
+  background: #000046;
+  background: -webkit-linear-gradient(to bottom, #000046, #1cb5e0, #000000);
+  background: linear-gradient(to bottom, #000046, #1cb5e0, #000000);
 }
 
 .main-container {
@@ -23,26 +49,24 @@ html {
 }
 
 #search {
-  position: relative;
   display: block;
   width: (45vw + 2.3vw);
   height: 5vw;
   font-size: 2.5em;
-  border-radius: 5px;
+  border-radius: 5px 0 0 5px;
   border: none;
   text-align: center;
-  opacity: 0.5;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.3);
+  // opacity: 0.5;
 }
 
 button {
-  position: relative;
   vertical-align: middle;
   font-size: 2.5em;
   border: none;
+  border-radius: 0 5px 5px 0;
   text-align: center;
-  opacity: 0.5;
-  background: none;
-  left: -1.3em;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.35);
   cursor:pointer;
 }
 
@@ -94,7 +118,6 @@ input::-webkit-calendar-picker-indicator {
 
 .cards {
   display: none;
-  padding: 1em;
   flex-flow: row wrap;
   text-align: center;
   align-self: center;
@@ -110,9 +133,9 @@ input::-webkit-calendar-picker-indicator {
   margin: .3em;
   text-align: center;
   align-self: center;
-  max-width: 33%;
-  min-width: 33%;
-  background-color: rgba($color: #FFFFFF, $alpha: 0.5);
+  max-width: 31%;
+  min-width: 31%;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.3);
   border-radius: 5px;
   
   .titleContainer {
@@ -151,7 +174,7 @@ input::-webkit-calendar-picker-indicator {
   h4 { margin: 0;}
   .temp {
     font-size: 5em;
-    font-family: 'Baumans', cursive;
+    font-family: 'Oswald', sans-serif;
   }
   
   .desc {

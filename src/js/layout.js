@@ -7,6 +7,21 @@ import gif from '../img/loading_weather.gif'
 const mainContainer = getById('main-container');
 const cards = getById('cards');
 
+const backgroundToggler = () => {
+  const light = getById('lightIcon');
+  const html = getById('html');
+  
+  light.addEventListener('click', () => {
+    light.classList.toggle('lightsOn');
+    light.classList.toggle('lightsOff');
+    light.classList.toggle('ion-ios7-moon');
+    light.classList.toggle('ion-ios7-sunny');
+    
+    html.classList.toggle('bgDay');
+    html.classList.toggle('bgNight');
+  });
+}
+
 const preloadDatalist = async () => {
   getById('modalgif').src = await gif;
   const searchHelper = await create('datalist', [{ id: 'citiesList' }]);
@@ -22,6 +37,8 @@ export const initLayout = () => {
   preloadDatalist().then(() => {
     getById('modal').classList.add('closed');
   });
+
+  backgroundToggler();
 
   const formContainer = create('div', [{ className: 'form-container' }]);
   const searchInput = create('input', [
@@ -91,7 +108,7 @@ export const renderData = (data) => {
   const titleContainer = create('div', [{ className: 'titleContainer'}]);
   const cityName = create('div', [{ className: 'cityName'}]);
   const locationIcon = create('i', [{ className: 'ion-location' }]);
-  cityName.innerText = data.name;
+  cityName.innerText = `${data.name} - ${data.sys.country}`;
   append(titleContainer, [locationIcon, cityName]);
   
   const firstRow = create('div', [{ className: 'firstRow' }]);
@@ -106,9 +123,7 @@ export const renderData = (data) => {
   const temp = create('div', [{ className: 'temp' }, { innerText: getKtoC(data.main.temp) }, { id: 'temp' }]);
   const minmax = create('div', [{ className: 'minmax' }, { innerText: minmaxKtoC(data.main.temp_min, data.main.temp_max) }]);
   append(col2, [temp, minmax]);
-  dataReceptor.addEventListener('click', () => {
-    cardToggler(col2, data);
-  });
+  dataReceptor.addEventListener('click', () => cardToggler(col2, data));
   append(col3, [icon, desc]);
   append(dataReceptor, [titleContainer, firstRow]);
   append(firstRow, [col1, col2, col3]);
