@@ -3,7 +3,7 @@
 ![](https://img.shields.io/badge/beta-development-green?style=flat-square)
 
 # Daily Weather Service
-It's a partially responsive weather service created with JavaScript, CSS and HTML.
+It's a partially responsive weather service created with JavaScript, SASS and HTML.
 
 It has over 10000 cities preloaded in a datalist for easy selection.
 
