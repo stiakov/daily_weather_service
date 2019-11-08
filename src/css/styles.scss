@@ -1,0 +1,228 @@
+@import url('https://fonts.googleapis.com/css?family=Oswald:500|Roboto&display=swap');
+
+html {
+  font-family: 'Roboto', sans-serif;
+  min-height: 100%;
+}
+
+#lightToggler { margin-right: .5em;}
+
+.lightsOn {
+  font-size: 2.5em;
+  color: #000046;
+  clear: both;
+  float: right;
+  cursor: pointer;
+}
+.lightsOff {
+  font-size: 2.5em;
+  color: #FFFDE4;
+  clear: both;
+  float: right;
+  cursor: pointer;
+}
+
+.bgDay{
+  background: #005AA7;
+  background: -webkit-linear-gradient(to top, #FFFDE4, #6DD5FF, #005AA7);
+  background: linear-gradient(to top, #FFFDE4, #6DD5FF, #005AA7);
+}
+
+.bgNight {
+  background: #000046;
+  background: -webkit-linear-gradient(to bottom, #000046, #1cb5e0, #000000);
+  background: linear-gradient(to bottom, #000046, #1cb5e0, #000000);
+}
+
+.main-container {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  min-height: 75vh;
+}
+
+#search {
+  display: block;
+  width: (45vw + 2.3vw);
+  height: 5vw;
+  font-size: 2.5em;
+  border-radius: 5px 0 0 5px;
+  border: none;
+  text-align: center;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.3);
+  // opacity: 0.5;
+}
+
+button {
+  vertical-align: middle;
+  font-size: 2.5em;
+  border: none;
+  border-radius: 0 5px 5px 0;
+  text-align: center;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.35);
+  cursor:pointer;
+}
+
+.form-container {
+  display: flex;
+  flex-direction: row;
+  input { flex-grow: 1; }
+}
+
+#modalgif {
+  width: auto;
+  height: auto;
+}
+
+.modal {
+  display: flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  
+  width: 100vw;
+  max-width: 100vw;
+  height: 100vh;
+  max-height: 100vh;
+  
+  position: fixed;
+  z-index: 100;
+  
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  
+  background:#e4f3f3;
+}
+
+.closed {
+  display: none;
+}
+
+datalist {
+  display: none;
+}
+
+input::-webkit-calendar-picker-indicator {
+  display: none;
+}
+
+.cards {
+  display: none;
+  flex-flow: row wrap;
+  text-align: center;
+  align-self: center;
+  justify-content: center;
+  max-width: auto;
+}
+
+.data-receptor {
+  display: flex;
+  flex-flow: column;
+  flex: 1;
+  padding: .4em;
+  margin: .3em;
+  text-align: center;
+  align-self: center;
+  max-width: 31%;
+  min-width: 31%;
+  background-color: rgba($color: #FFFFFF, $alpha: 0.3);
+  border-radius: 5px;
+  
+  .titleContainer {
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
+    width: 100%;
+    font-size: 1.8em;
+    i { margin-right: 0.8em;}
+  }
+
+  .cardToggler {
+    cursor: pointer;
+    -webkit-transform-style: preserve-3d;
+    -moz-transform-style: preserve-3d;
+    -o-transform-style: preserve-3d;
+    transform-style: preserve-3d;
+    -webkit-backface-visibility: hidden;
+    -moz-backface-visibility: hidden;
+    -o-backface-visibility: hidden;
+    backface-visibility: hidden;
+  }
+  
+  .firstRow {
+    display: flex;
+    flex-flow: row;
+    justify-content: space-between;
+    .col {flex: 1;}
+
+  }
+  .weatherIcon {
+    // height: 10em;
+    // width: auto;
+    object-fit: cover;
+  }
+  h4 { margin: 0;}
+  .temp {
+    font-size: 5em;
+    font-family: 'Oswald', sans-serif;
+  }
+  
+  .desc {
+    text-transform: capitalize;
+    flex: 1;
+  }
+
+  .minmax {
+    text-align: center;
+  }
+}
+
+.toTop {
+  display: flex;
+  display: -webkit-box;
+  display: -moz-box;
+  display: -ms-flexbox;
+  display: -webkit-flex;
+  flex-flow: column;
+  padding: 0;
+  margin: 0;
+  align-items: center;
+  justify-content: center;
+  -webkit-transition: min-height .3s ease-in-out;
+  transition: min-height .3s ease-in-out;
+  min-height: 22vh;
+}
+
+@-webkit-keyframes rotateY1 {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY1 {
+  to { transform: rotateY(360deg); }
+}
+
+@-webkit-keyframes rotateY2 {
+  to { -webkit-transform: rotateY(360deg); }
+}
+@keyframes rotateY2 {
+  to { transform: rotateY(360deg); }
+}
+.spin1 {
+  -webkit-animation: rotateY1 .5s ease;
+  animation: rotateY1 .5s ease;
+  cursor: pointer;
+}
+.spin2 {
+  -webkit-animation: rotateY2 .5s ease;
+  animation: rotateY2 .5s ease;
+  cursor: pointer;
+}
